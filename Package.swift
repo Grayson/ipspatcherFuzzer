@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "ipspatcherFuzzer",
     dependencies: [
-        .package(url: "../ipspatcher", from: "0.0.3"),
+        .package(url: "../ipspatcher", from: "2.0.0"),
         .package(url: "../FuzzerInterface", from: "0.0.1"),
     ],
     targets: [
