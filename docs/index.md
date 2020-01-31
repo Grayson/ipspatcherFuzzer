@@ -34,6 +34,18 @@ This project was set up in the following way:
 [dep]: https://github.com/Grayson/ipspatcherFuzzer/blob/e4bb7439cdf47a8ab133956365c872a62dfd117f/Package.swift#L9-L10
 [dep2]: https://github.com/Grayson/ipspatcherFuzzer/blob/e4bb7439cdf47a8ab133956365c872a62dfd117f/Package.swift#L15
 
+### Very important: Get a different version of Swift!
+
+The Swift that ships with Xcode (at the time of the writing of this document) does not support fuzzing.  It's based on a relatively newer version of LLVM, but some features are turned off by Apple.  Fuzzing is one of those features.
+
+You can get a newer version of Swift with all of the features turned on [directly from Swift.org][swiftorg].  I would recommend using a tool like [swiftenv][] that allows you to readily manage which swift you are using both locally and globally.  I don't recall when fuzzing was supported, but you should be able to use any recent 5.2 snapshot.
+
+Also, remember that you can use [xcrun][] to locate and use the tooling installed with Xcode when necessary.
+
+[swiftorg]: https://swift.org/download/#snapshots
+[swiftenv]: https://swiftenv.fuller.li/en/latest/
+[xcrun]: https://www.unix.com/man-page/osx/1/xcrun/
+
 ## FuzzerInterface
 
 The FuzzerInterface repo exists merely to provide some symbols to Swift for the fuzzer to use.  It exposes a [header file][header].  Fuzzer applications will implement `LLVMFuzzerTestOneInput` and potentially `LLVMFuzzerCustomMutator`, so the only symbol that's actually needed is `LLVMFuzzerMutate` (which is a function you can call in your custom mutator).  The actual implementation of `LLVMFuzzerMutate` will be provided by the compiler during the linking phase.
